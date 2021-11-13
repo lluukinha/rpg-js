@@ -63,7 +63,7 @@ class Overworld {
   }
 
   init() {
-    this.startMap("DemoRoom");
+    this.startMap("Kitchen"); // Kitchen, DemoRoom
 
     this.bindActionInput();
     this.bindHeroPositionCheck();
@@ -79,7 +79,7 @@ class Overworld {
     //   { who: 'npcA', type: 'walk', direction: 'left' },
     //   { who: 'npcA', type: 'walk', direction: 'left' },
     //   { who: 'npcA', type: 'stand', direction: 'up', time: 800 },
-    //   { type: "textMessage", text: "OI CUPINCHO!!"}
+    //   { type: "textMessage", text: "Hello there!!"}
     // ]);
   }
 }
