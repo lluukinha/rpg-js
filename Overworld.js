@@ -81,5 +81,9 @@ class Overworld {
     //   { who: 'npcA', type: 'stand', direction: 'up', time: 800 },
     //   { type: "textMessage", text: "Hello there!!"}
     // ]);
+
+    this.map.startCutscene([
+      { type: 'battle' }
+    ]);
   }
 }
