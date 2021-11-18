@@ -8,7 +8,8 @@ class Battle {
       xp: 0,
       maxXp: 100,
       level: 1,
-      status: null
+      status: null,
+      isPlayerControlled: true,
     };
     const player1 = new Combatant(player1config, this);
 
