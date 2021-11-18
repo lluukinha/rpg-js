@@ -35,5 +35,9 @@ const utils = {
     return new Promise(resolve => {
       setTimeout(() => { resolve(); }, ms);
     });
+  },
+
+  randomFromArray(array) {
+    return array[ Math.floor(Math.random() * array.length) ];
   }
 };

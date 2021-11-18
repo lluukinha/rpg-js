@@ -3,7 +3,7 @@ class Battle {
     const player1config = {
       ...Pizzas.s001,
       team: 'player',
-      hp: 50,
+      hp: 40,
       maxHp: 50,
       xp: 0,
       maxXp: 100,
