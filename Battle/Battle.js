@@ -8,7 +8,7 @@ class Battle {
       xp: 0,
       maxXp: 100,
       level: 1,
-      status: null,
+      status: /* null, */ { type: "saucy" },
       isPlayerControlled: true,
     };
     const player1 = new Combatant(player1config, this);
@@ -42,6 +42,13 @@ class Battle {
       player: "player1",
       enemy: "enemy2"
     };
+
+    this.items = [
+      { actionId: "item_recoverStatus", instanceId: "p1", team: "player" },
+      { actionId: "item_recoverStatus", instanceId: "p2", team: "player" },
+      { actionId: "item_recoverStatus", instanceId: "p3", team: "enemy" },
+      { actionId: "item_recoverHp", instanceId: "p4", team: "player" },
+    ];
   }
 
   createElement() {

@@ -20,8 +20,8 @@ class KeyboardMenu {
           >
             ${option.label}
           </button>
+          <span class="right">${right}</span>
         </div>
-        <span class="right">${right}</span>
       `);
     }).join("");
 
