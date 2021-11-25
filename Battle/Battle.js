@@ -13,6 +13,19 @@ class Battle {
     };
     const player1 = new Combatant(player1config, this);
 
+    const player2config = {
+      ...Pizzas.s002,
+      team: 'player',
+      hp: 60,
+      maxHp: 60,
+      xp: 75,
+      maxXp: 100,
+      level: 1,
+      status: null,
+      isPlayerControlled: true,
+    };
+    const player2 = new Combatant(player2config, this);
+
     const enemy1config = {
       ...Pizzas.v001,
       team: 'enemy',
@@ -37,7 +50,7 @@ class Battle {
     };
     const enemy2 = new Combatant(enemy2config, this);
 
-    this.combatants = { player1, enemy1, enemy2 };
+    this.combatants = { player1, player2, enemy1, enemy2 };
     this.activeCombatants = {
       player: "player1",
       enemy: "enemy2"
