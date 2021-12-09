@@ -63,6 +63,9 @@ class Overworld {
   }
 
   init() {
+    this.hud = new Hud();
+    this.hud.init(document.querySelector(".game-container"));
+
     this.startMap("DemoRoom"); // Kitchen, DemoRoom
 
     this.bindActionInput();

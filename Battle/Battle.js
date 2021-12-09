@@ -99,6 +99,9 @@ class Battle {
           // Get  rid of player used items
           playerState.items = playerState.items
             .filter(item => !this.usedInstanceIds[item.instanceId]);
+
+          // Send signal to update hud
+          utils.emitEvent("PlayerStateUpdated");
         }
 
         this.element.remove();
