@@ -4,6 +4,10 @@ class OverworldEvent {
     this.event = event;
   }
 
+  get container() {
+    return document.querySelector(".game-container");
+  }
+
   stand(resolve) {
     const who = this.map.gameObjects[this.event.who];
     who.startBehavior({ map: this.map }, {
@@ -54,13 +58,12 @@ class OverworldEvent {
       text: this.event.text,
       onComplete: () => resolve()
     });
-    message.init( document.querySelector(".game-container") );
+    message.init(this.container);
   }
 
   changeMap(resolve) {
-    const container = document.querySelector(".game-container");
     const sceneTransition = new SceneTransition();
-    sceneTransition.init(container, () => {
+    sceneTransition.init(this.container, () => {
       this.map.overworld.startMap(this.event.map);
       resolve();
       sceneTransition.fadeOut();
@@ -68,12 +71,23 @@ class OverworldEvent {
   }
 
   battle(resolve) {
-    const container = document.querySelector(".game-container");
     const battle = new Battle({
       enemy: Enemies[this.event.enemyId],
       onComplete: () => { resolve(); }
     });
-    battle.init(container);
+    battle.init(this.container);
+  }
+
+  pause(resolve) {
+    this.map.isPaused = true;
+    const menu = new PauseMenu({
+      onComplete: () => {
+        resolve();
+        this.map.isPaused = false;
+        this.map.overworld.startGameLoop();
+      }
+    });
+    menu.init(this.container);
   }
 
   init() {

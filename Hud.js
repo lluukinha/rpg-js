@@ -10,7 +10,14 @@ class Hud {
     });
   }
 
+  clearHud() {
+    if (!this.element) return;
+    this.element.remove();
+    this.scoreBoards = [];
+  }
+
   createElement() {
+    this.clearHud();
     this.element = document.createElement("div");
     this.element.classList.add("Hud");
 
@@ -35,5 +42,9 @@ class Hud {
     this.createElement();
     container.appendChild(this.element);
     document.addEventListener("PlayerStateUpdated", () => { this.update(); });
+    document.addEventListener("LineupChanged", () => {
+      this.createElement();
+      container.appendChild(this.element);
+    });
   }
 }
