@@ -73,7 +73,10 @@ class OverworldEvent {
   battle(resolve) {
     const battle = new Battle({
       enemy: Enemies[this.event.enemyId],
-      onComplete: () => { resolve(); }
+      onComplete: (didWin) => {
+        const flag = didWin ? "WON_BATTLE" : "LOST_BATTLE";
+        resolve(flag);
+      }
     });
     battle.init(this.container);
   }
@@ -88,6 +91,11 @@ class OverworldEvent {
       }
     });
     menu.init(this.container);
+  }
+
+  addStoryFlag(resolve) {
+    window.playerState.storyFlags[this.event.flag] = true;
+    resolve();
   }
 
   init() {

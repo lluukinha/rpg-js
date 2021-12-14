@@ -57,7 +57,9 @@ class OverworldMap {
         event: events[i],
         map: this,
       })
-      await eventHandler.init();
+      const result = await eventHandler.init();
+
+      if (result === "LOST_BATTLE") break;
     }
 
     this.isCutscenePlaying = false;
@@ -70,11 +72,16 @@ class OverworldMap {
   checkForActionCutscene() {
     const hero = this.gameObjects["hero"];
     const nextCoords = utils.nextPosition(hero.x, hero.y, hero.direction);
-    const match = Object.values(this.gameObjects).find(object => {
-      return `${object.x},${object.y}` === `${nextCoords.x},${nextCoords.y}`;
-    });
+    const match = Object.values(this.gameObjects)
+      .find(object => `${object.x},${object.y}` === `${nextCoords.x},${nextCoords.y}`);
+
     if (!this.isCutscenePlaying && match && match.talking.length) {
-      this.startCutscene(match.talking[0].events);
+      const relevantScenario = match.talking.find(scenario => {
+        const requiredScenarios = scenario.required || [];
+        return requiredScenarios.every(storyFlag => playerState.storyFlags[storyFlag]);
+      });
+
+      relevantScenario && this.startCutscene(relevantScenario.events);
     }
   }
 
@@ -121,10 +128,17 @@ window.OverworldMaps = {
         ],
         talking: [
           {
+            required: ["DEFEATED_BETH"],
             events: [
-              { type: "textMessage", text: "I'm busy...", faceHero: "npcA" },
+              { type: "textMessage", text: "What do you want?", faceHero: "npcA" },
+            ]
+          },
+          {
+            events: [
+              { type: "textMessage", text: "I'm going to crush you!", faceHero: "npcA" },
               { type: "battle", enemyId: "beth" },
-              { type: "textMessage", text: "Go away!" },
+              { type: "addStoryFlag", flag: "DEFEATED_BETH" },
+              { type: "textMessage", text: "Go away! You crushed me like weak pepper." },
               { type: "walk", who: "hero", direction: "left" }
             ]
           }
@@ -136,9 +150,16 @@ window.OverworldMaps = {
         src: '/images/characters/people/erio.png',
         talking: [
           {
+            required: ["DEFEATED_BETH"],
+            events: [
+              { type: "textMessage", text: "Beth was weak", faceHero: "npcB" },
+            ]
+          },
+          {
             events: [
               { type: "textMessage", text: "Bahaha!", faceHero: "npcB" },
-              { type: "battle", enemyId: "erio" },
+              { type: "addStoryFlag", flag: "TALKED_TO_ERIO" },
+              // { type: "battle", enemyId: "erio" },
             ]
           }
         ],
