@@ -158,8 +158,8 @@ window.OverworldMaps = {
           {
             events: [
               { type: "textMessage", text: "Bahaha!", faceHero: "npcB" },
-              { type: "addStoryFlag", flag: "TALKED_TO_ERIO" },
-              // { type: "battle", enemyId: "erio" },
+              // { type: "addStoryFlag", flag: "TALKED_TO_ERIO" },
+              { type: "battle", enemyId: "erio" },
             ]
           }
         ],
