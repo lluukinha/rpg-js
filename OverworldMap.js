@@ -164,6 +164,12 @@ window.OverworldMaps = {
           }
         ],
       }),
+      pizzaStone: new PizzaStone({
+        x: utils.withGrid(2),
+        y: utils.withGrid(7),
+        storyFlag: "USED_PIZZA_STONE",
+        pizzas: [ "v001", "f001" ],
+      }),
     },
     walls: {
       [utils.asGridCoord(7,6)]: true,
