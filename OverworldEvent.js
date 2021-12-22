@@ -64,7 +64,9 @@ class OverworldEvent {
   changeMap(resolve) {
     const sceneTransition = new SceneTransition();
     sceneTransition.init(this.container, () => {
-      this.map.overworld.startMap(this.event.map);
+      const { x, y, direction } = this.event;
+      const config = x ? { x, y, direction } : null;
+      this.map.overworld.startMap(this.event.map, config);
       resolve();
       sceneTransition.fadeOut();
     });
@@ -84,6 +86,7 @@ class OverworldEvent {
   pause(resolve) {
     this.map.isPaused = true;
     const menu = new PauseMenu({
+      progress: this.map.overworld.progress,
       onComplete: () => {
         resolve();
         this.map.isPaused = false;
